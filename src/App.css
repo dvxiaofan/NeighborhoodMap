@@ -10,6 +10,6 @@
 }
 
 .Map {
-	background-color: #ff0;
 	flex: 1;
+	height: 600px;
 }
