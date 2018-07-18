@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NavMenu from './NavMenu.js';
 import './App.css';
 import { 
   GOOGLEMAP_KEY,
@@ -116,7 +117,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className='NavMenu'>NavMenu</div>
+        <NavMenu/>
         <div className='Map' id='map'></div>
       </div>
     );
