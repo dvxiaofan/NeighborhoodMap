@@ -9,8 +9,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      map: '',
-      markers: '',
+      markers: [],
+      map: {},
+      infowindow: '',
+      bounds: '',
       locations: [
         {
           id: '1',
@@ -42,31 +44,74 @@ class App extends Component {
           address: '555',
           location: { lat: 30.594741, lng: 114.269919 },
           type: '5555'
+        },{
+          id: '6',
+          title: '66',
+          address: '666',
+          location: { lat: 30.577007, lng: 114.333434 },
+          type: '6666'
+        },{
+          id: '7',
+          title: '77',
+          address: '777',
+          location: { lat: 30.555279, lng: 114.28451 },
+          type: '7777'
         }
       ]
     };
+
+    this.initMap = this.initMap.bind(this);
   }
 
   componentDidMount() {
     window.initMap = this.initMap;
     
     loadGoogleMap(`https://maps.googleapis.com/maps/api/js?key=${GOOGLEMAP_KEY}&callback=initMap`);
-  }
+  };
 
   initMap() {
 
-    var mapview = document.getElementById("map");
+    var mapview = document.getElementById('map');
+    var infowindow = new window.google.maps.InfoWindow();
+    var bounds = new window.google.maps.LatLngBounds();
     var map = new window.google.maps.Map(mapview, {
       zoom: 13,
       center: {
-        lat: 30.554393,
-        lng: 114.308543
+        lat: 30.592376,
+        lng: 114.30511
       },
+      mapTypeControl: false
+    });
+
+    this.state.locations.map( loca => {
+      loca = new window.google.maps.Marker({
+        position: loca.location,
+        map: map,
+        id: loca.id,
+        title: loca.title,
+        address: loca.address,
+        type: loca.type
+      });
+      bounds.extend(loca.position);
+      loca.addListener('click', () => {
+        this.toggleBounce(loca);
+        this.createInfowindow(loca);
+        map.setCenter(loca.position);
+        map.panBy(-100, -200);
+      });
+
+      this.state.markers.push(loca);
+      return null;
       
-      mapTypeControl: true
+    });
+
+    this.setState({
+      map: map,
+      infowindow: infowindow,
+      bounds: bounds,
     });
     
-  }
+  };
   
   render() {
     return (
