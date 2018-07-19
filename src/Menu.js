@@ -22,11 +22,6 @@ class Menu extends Component {
 				>
 					Filter
 				</Search>
-				{locations.map(loca =>(
-					<div key={loca.locaID}>
-						<span>{loca.title}</span>
-					</div>
-				))}
 			</div>
 		);
 	}

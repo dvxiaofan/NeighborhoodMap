@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 
+const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class Search extends Component {
 
@@ -9,7 +10,9 @@ class Search extends Component {
 
     this.state = {
       searchTerm: '',
-    }
+		}
+		
+		this.onSearchChange = this.onSearchChange.bind(this);
   }
 
 	componentDidMount() {
@@ -18,26 +21,33 @@ class Search extends Component {
 		}
 	}
 
-	render() {
+	onSearchChange(event) {
+		this.setState({ searchTerm: event.target.value });
+	}
+
+	render() {		
 		const {
-			value,
-			onChange,
 			children,
-			// locations,
+			locations,
 		} = this.props;
 		
 		return (
-			<form>
-				<input
-					type='text'
-					value={value}
-					onChange={onChange}
-				/>
-				<button type='submit'>
-					{children}
-				</button>
-
-			</form>
+			<div>
+				<form>
+					<input
+						type='text'
+						onChange={this.onSearchChange}
+					/>
+					<button type='submit'>
+						{children}
+					</button>
+				</form>
+				{locations.filter(isSearched(this.state.searchTerm)).map(loca =>(
+					<div key={loca.locaID}>
+						<span>{loca.title}</span>
+					</div>
+				))}
+			</div>
 		)
 	}
 }

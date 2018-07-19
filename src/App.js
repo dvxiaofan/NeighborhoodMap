@@ -20,43 +20,43 @@ class App extends Component {
           title: 'one',
           address: '111',
           location: { lat: 30.613611, lng: 114.308872 },
-          type: '1111'
+          type: 'foot'
         },{
           locaID: '2',
           title: 'two',
           address: '222',
           location: { lat: 30.57819, lng: 114.298072 },
-          type: '2222'
+          type: 'game'
         },{
           locaID: '3',
           title: 'three',
           address: '333',
           location: { lat: 30.592081, lng: 114.294638 },
-          type: '3333'
+          type: 'voice'
         },{
           locaID: '4',
           title: 'four',
           address: '444',
           location: { lat: 30.602572, lng: 114.31335 },
-          type: '4444'
+          type: 'car'
         },{
           locaID: '5',
           title: 'five',
           address: '555',
           location: { lat: 30.594741, lng: 114.269919 },
-          type: '5555'
+          type: 'mountain'
         },{
           locaID: '6',
           title: 'six',
           address: '666',
           location: { lat: 30.577007, lng: 114.333434 },
-          type: '6666'
+          type: 'udacity'
         },{
           locaID: '7',
           title: 'seven',
           address: '777',
           location: { lat: 30.555279, lng: 114.28451 },
-          type: '7777'
+          type: 'foot'
         }
       ]
     };
@@ -71,7 +71,6 @@ class App extends Component {
   };
 
   initMap() {
-
     var mapview = document.getElementById('map');
     var infowindow = new window.google.maps.InfoWindow();
     var bounds = new window.google.maps.LatLngBounds();
