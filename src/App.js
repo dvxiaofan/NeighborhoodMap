@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavMenu from './NavMenu.js';
+import Menu from './Menu.js';
 import './App.css';
 import { 
   GOOGLEMAP_KEY,
@@ -16,44 +16,44 @@ class App extends Component {
       bounds: '',
       locations: [
         {
-          id: '1',
-          title: '11',
+          locaID: '1',
+          title: 'one',
           address: '111',
           location: { lat: 30.613611, lng: 114.308872 },
           type: '1111'
         },{
-          id: '2',
-          title: '22',
+          locaID: '2',
+          title: 'two',
           address: '222',
           location: { lat: 30.57819, lng: 114.298072 },
           type: '2222'
         },{
-          id: '3',
-          title: '33',
+          locaID: '3',
+          title: 'three',
           address: '333',
           location: { lat: 30.592081, lng: 114.294638 },
           type: '3333'
         },{
-          id: '4',
-          title: '44',
+          locaID: '4',
+          title: 'four',
           address: '444',
           location: { lat: 30.602572, lng: 114.31335 },
           type: '4444'
         },{
-          id: '5',
-          title: '55',
+          locaID: '5',
+          title: 'five',
           address: '555',
           location: { lat: 30.594741, lng: 114.269919 },
           type: '5555'
         },{
-          id: '6',
-          title: '66',
+          locaID: '6',
+          title: 'six',
           address: '666',
           location: { lat: 30.577007, lng: 114.333434 },
           type: '6666'
         },{
-          id: '7',
-          title: '77',
+          locaID: '7',
+          title: 'seven',
           address: '777',
           location: { lat: 30.555279, lng: 114.28451 },
           type: '7777'
@@ -115,9 +115,14 @@ class App extends Component {
   };
   
   render() {
+    const {
+      locations,
+    } = this.state;
     return (
       <div className="App">
-        <NavMenu/>
+        <Menu
+          locations={locations}
+        />
         <div className='Map' id='map'></div>
       </div>
     );
