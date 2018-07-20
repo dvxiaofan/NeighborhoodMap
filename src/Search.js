@@ -13,6 +13,8 @@ class Search extends Component {
 		}
 		
 		this.onSearchChange = this.onSearchChange.bind(this);
+		this.onListClick = this.onListClick.bind(this);
+		this.onFilterClick = this.onFilterClick.bind(this);
   }
 
 	componentDidMount() {
@@ -23,6 +25,14 @@ class Search extends Component {
 
 	onSearchChange(event) {
 		this.setState({ searchTerm: event.target.value });
+	}
+
+	onListClick(event) {
+		console.log(event.target.innerHTML);
+	}
+
+	onFilterClick() {
+		console.log('Filter');
 	}
 
 	render() {		
@@ -43,8 +53,9 @@ class Search extends Component {
 						onChange={this.onSearchChange}
 					/>
 					<button 
-						type='submit'
+						type='button'
 						className='form-button'
+						onClick={this.onFilterClick}
 					>
 						{children}
 					</button>
@@ -53,8 +64,9 @@ class Search extends Component {
 					<div 
 						key={loca.locaID}
 						className='form-list'
+						onClick={this.onListClick}
 					>
-						<span>{loca.title}</span>
+						{loca.title}
 					</div>
 				))}
 			</div>
