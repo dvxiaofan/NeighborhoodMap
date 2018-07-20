@@ -15,8 +15,10 @@ class Menu extends Component {
 		} = this.props;
 
 		return (
-			<div className='Menu'>
-				<span>WH Locations</span>
+			<div className='menu'>
+				<div className='menu-title'>
+					<span>WH Locations</span>
+				</div>
 				<Search
 					locations={locations}
 				>

@@ -30,15 +30,22 @@ class Search extends Component {
 			children,
 			locations,
 		} = this.props;
+
+		const { searchTerm } = this.state;
 		
 		return (
 			<div>
-				<form>
+				<form className='form'>
 					<input
 						type='text'
+						className='form-input'
+						value={searchTerm}
 						onChange={this.onSearchChange}
 					/>
-					<button type='submit'>
+					<button 
+						type='submit'
+						className='form-button'
+					>
 						{children}
 					</button>
 				</form>

@@ -4,12 +4,38 @@
 	display: flex;
 }
 
-.Menu {
-	/* background-color: #000; */
-	color: #8a8a8a;
-	width: 220px;
-}
-
-.Map {
+.map {
 	flex: 1;
 }
+
+.menu {
+	color: #8a8a8a;
+	width: 220px;
+	background-color: #000;
+}
+
+.menu-title {
+	height: 60px;
+	line-height: 60px;
+}
+
+.form {
+	margin-top: 5px;
+}
+
+.form-input, .form-button {
+	padding: 0;
+	border: 0;
+	height: 25px;
+}
+
+.form-input {
+	width: 70%;
+}
+
+.form-button {
+	width: 30%;
+	background-color: #4a81c2;
+	border-radius: 0 3px 3px 0;
+}
+

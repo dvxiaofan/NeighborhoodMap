@@ -64,11 +64,12 @@ class App extends Component {
     this.initMap = this.initMap.bind(this);
   }
 
-  componentDidMount() {
-    window.initMap = this.initMap;
+  /* TODO: 临时不加载地图 */
+  // componentDidMount() {
+  //   window.initMap = this.initMap;
     
-    loadGoogleMap(`https://maps.googleapis.com/maps/api/js?key=${GOOGLEMAP_KEY}&callback=initMap`);
-  };
+  //   loadGoogleMap(`https://maps.googleapis.com/maps/api/js?key=${GOOGLEMAP_KEY}&callback=initMap`);
+  // };
 
   initMap() {
     var mapview = document.getElementById('map');
@@ -122,7 +123,8 @@ class App extends Component {
         <Menu
           locations={locations}
         />
-        <div className='Map' id='map'></div>
+        {/* <div className='map' id='map'></div> */}
+        <div className='map'>map</div>
       </div>
     );
   }
