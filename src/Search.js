@@ -50,7 +50,10 @@ class Search extends Component {
 					</button>
 				</form>
 				{locations.filter(isSearched(this.state.searchTerm)).map(loca =>(
-					<div key={loca.locaID}>
+					<div 
+						key={loca.locaID}
+						className='form-list'
+					>
 						<span>{loca.title}</span>
 					</div>
 				))}

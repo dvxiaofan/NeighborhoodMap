@@ -17,6 +17,7 @@
 .menu-title {
 	height: 60px;
 	line-height: 60px;
+	margin-left: 40px;
 }
 
 .form {
@@ -34,8 +35,14 @@
 }
 
 .form-button {
+	color: #fff;
 	width: 30%;
 	background-color: #4a81c2;
 	border-radius: 0 3px 3px 0;
 }
 
+.form-list {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 15px;
+}
