@@ -64,12 +64,11 @@ class App extends Component {
     this.initMap = this.initMap.bind(this);
   }
 
-  /* TODO: 临时不加载地图 */
-  // componentDidMount() {
-  //   window.initMap = this.initMap;
+  componentDidMount() {
+    window.initMap = this.initMap;
     
-  //   loadGoogleMap(`https://maps.googleapis.com/maps/api/js?key=${GOOGLEMAP_KEY}&callback=initMap`);
-  // };
+    loadGoogleMap(`https://maps.googleapis.com/maps/api/js?key=${GOOGLEMAP_KEY}&callback=initMap`);
+  };
 
   initMap() {
     var mapview = document.getElementById('map');
@@ -111,8 +110,24 @@ class App extends Component {
       infowindow: infowindow,
       bounds: bounds,
     });
-    
+    this.changeMapZoom();
   };
+
+  // 根据窗口大小改变地图缩放比例
+  changeMapZoom = () => {
+    const {
+      map,
+      bounds 
+    } = this.state;
+    if (window.innerWidth >= 1200) {
+      map.setZoom(15);
+    } else if (window.innerWidth >= 699) {
+      map.setZoom(14);
+    } else {
+      map.fitBounds(bounds);
+    }
+    map.panBy(0, 0);
+  }
   
   render() {
     const {
@@ -123,8 +138,7 @@ class App extends Component {
         <Menu
           locations={locations}
         />
-        {/* <div className='map' id='map'></div> */}
-        <div className='map'>map</div>
+        <div className='map' id='map'></div>
       </div>
     );
   }
