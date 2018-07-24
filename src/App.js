@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       markers: [],
       map: {},
-      infowindow: '',
+      infobox: '',
+      marker: '',
       bounds: '',
       locations: [
         {
@@ -71,8 +72,9 @@ class App extends Component {
   };
 
   initMap() {
+    var self = this;
     var mapview = document.getElementById('map');
-    var infowindow = new window.google.maps.InfoWindow();
+    var InfoBox = new window.google.maps.InfoWindow();
     var bounds = new window.google.maps.LatLngBounds();
     var map = new window.google.maps.Map(mapview, {
       zoom: 13,
@@ -80,7 +82,27 @@ class App extends Component {
         lat: 30.592376,
         lng: 114.30511
       },
-      mapTypeControl: false
+      mapTypeControl: true
+    });
+
+    window.google.maps.event.addListener(InfoBox, 'closeclick', () => {
+      self.closeInfoWindow();
+    });
+
+    this.setState({
+      map: map,
+      infowindow: InfoBox,
+      bounds: bounds,
+    });
+
+    window.google.maps.event.addDomListener(window, "resize", () => {
+      var center = map.getCenter();
+      window.google.maps.event.trigger(map, "resize");
+      self.state.map.setCenter(center);
+    });
+
+    window.google.maps.event.addListener(map, "click", () => {
+      self.closeInfoWindow();
     });
 
     this.state.locations.map( loca => {
@@ -90,14 +112,12 @@ class App extends Component {
         id: loca.id,
         title: loca.title,
         address: loca.address,
-        type: loca.type
+        type: loca.type,
+        animation: window.google.maps.Animation.DROP,
       });
       bounds.extend(loca.position);
       loca.addListener('click', () => {
-        this.toggleBounce(loca);
-        this.createInfowindow(loca);
-        map.setCenter(loca.position);
-        map.panBy(-100, -200);
+        console.log('hhh');
       });
 
       this.state.markers.push(loca);
@@ -105,11 +125,6 @@ class App extends Component {
       
     });
 
-    this.setState({
-      map: map,
-      infowindow: infowindow,
-      bounds: bounds,
-    });
     this.changeMapZoom();
   };
 
@@ -127,6 +142,17 @@ class App extends Component {
       map.fitBounds(bounds);
     }
     map.panBy(0, 0);
+  }
+
+  // 关闭信息窗口
+  closeInfoWindow = () => {
+    if (this.state.marker) {
+      this.state.marker.setAnimation(null);
+    }
+    this.setState({
+      prevmarker: ''
+    });
+    this.state.infowindow.close();
   }
   
   render() {
