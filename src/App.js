@@ -12,8 +12,7 @@ class App extends Component {
     this.state = {
       markers: [],
       map: {},
-      infobox: '',
-      marker: '',
+      infowindow: '',
       bounds: '',
       locations: [
         {
@@ -63,6 +62,8 @@ class App extends Component {
     };
 
     this.initMap = this.initMap.bind(this);
+    this.openInfoWindow = this.openInfoWindow.bind(this);
+    this.closeInfoWindow = this.closeInfoWindow.bind(this);
   }
 
   componentDidMount() {
@@ -74,7 +75,7 @@ class App extends Component {
   initMap() {
     var self = this;
     var mapview = document.getElementById('map');
-    var InfoBox = new window.google.maps.InfoWindow();
+    var infoWindow = new window.google.maps.InfoWindow();
     var bounds = new window.google.maps.LatLngBounds();
     var map = new window.google.maps.Map(mapview, {
       zoom: 13,
@@ -85,13 +86,13 @@ class App extends Component {
       mapTypeControl: true
     });
 
-    window.google.maps.event.addListener(InfoBox, 'closeclick', () => {
+    window.google.maps.event.addListener(infoWindow, 'closeclick', () => {
       self.closeInfoWindow();
     });
 
     this.setState({
       map: map,
-      infowindow: InfoBox,
+      infowindow: infoWindow,
       bounds: bounds,
     });
 
@@ -117,7 +118,7 @@ class App extends Component {
       });
       bounds.extend(loca.position);
       loca.addListener('click', () => {
-        console.log('hhh');
+        self.openInfoWindow(loca);
       });
 
       this.state.markers.push(loca);
@@ -144,10 +145,25 @@ class App extends Component {
     map.panBy(0, 0);
   }
 
+  // 打开信息窗口
+  openInfoWindow = (marker) => {
+    this.closeInfoWindow();
+    this.state.infowindow.open(this.state.map, marker);
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    this.setState({
+      marker: marker
+    });
+    this.state.infowindow.setContent('加载数据。。。');
+    this.state.map.setCenter(marker.getPosition());
+    this.state.map.panBy(0, -200);
+  }
+
   // 关闭信息窗口
   closeInfoWindow = () => {
-    if (this.state.marker) {
-      this.state.marker.setAnimation(null);
+    if (this.state.markers.length > 0) {
+      this.state.markers.map((marker) => {
+        marker.setAnimation(null);
+      });
     }
     this.setState({
       prevmarker: ''
