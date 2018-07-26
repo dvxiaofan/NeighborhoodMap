@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      markers: [],
+      marker: '',
       map: {},
       infowindow: '',
       bounds: '',
@@ -73,7 +73,6 @@ class App extends Component {
   };
 
   initMap() {
-    var self = this;
     var mapview = document.getElementById('map');
     var infoWindow = new window.google.maps.InfoWindow();
     var bounds = new window.google.maps.LatLngBounds();
@@ -87,7 +86,7 @@ class App extends Component {
     });
 
     window.google.maps.event.addListener(infoWindow, 'closeclick', () => {
-      self.closeInfoWindow();
+      this.closeInfoWindow();
     });
 
     this.setState({
@@ -99,32 +98,42 @@ class App extends Component {
     window.google.maps.event.addDomListener(window, "resize", () => {
       var center = map.getCenter();
       window.google.maps.event.trigger(map, "resize");
-      self.state.map.setCenter(center);
+      this.state.map.setCenter(center);
     });
 
     window.google.maps.event.addListener(map, "click", () => {
-      self.closeInfoWindow();
+      this.closeInfoWindow();
     });
 
+    var locations = [];
     this.state.locations.map( loca => {
-      loca = new window.google.maps.Marker({
-        position: loca.location,
-        map: map,
-        id: loca.id,
-        title: loca.title,
-        address: loca.address,
-        type: loca.type,
+      var longName = `${loca.title} - ${loca.type}`;
+      var marker = new window.google.maps.Marker({
+        position: new window.google.maps.LatLng(
+          loca.location.lat,
+          loca.location.lng,
+        ),
         animation: window.google.maps.Animation.DROP,
-      });
-      bounds.extend(loca.position);
-      loca.addListener('click', () => {
-        self.openInfoWindow(loca);
+        map: map,
+        address: loca.address,
       });
 
-      this.state.markers.push(loca);
+      loca.longname = longName;
+      loca.marker = marker;
+      loca.display = true;
+      locations.push(loca);
+
+      marker.addListener('click', () => {
+        this.openInfoWindow(marker);        
+      });
+
       return null;
       
     });
+
+    this.setState({
+      locations: locations
+    })
 
     this.changeMapZoom();
   };
@@ -136,9 +145,9 @@ class App extends Component {
       bounds 
     } = this.state;
     if (window.innerWidth >= 1200) {
-      map.setZoom(15);
-    } else if (window.innerWidth >= 699) {
       map.setZoom(14);
+    } else if (window.innerWidth >= 699) {
+      map.setZoom(13);
     } else {
       map.fitBounds(bounds);
     }
@@ -156,20 +165,24 @@ class App extends Component {
     this.state.infowindow.setContent('加载数据。。。');
     this.state.map.setCenter(marker.getPosition());
     this.state.map.panBy(0, -200);
+    this.state.infowindow.setContent(
+      'hello'
+    )
+    
   }
 
   // 关闭信息窗口
   closeInfoWindow = () => {
-    if (this.state.markers.length > 0) {
-      this.state.markers.map((marker) => {
-        marker.setAnimation(null);
-      });
+    if (this.state.marker) {
+      this.state.marker.setAnimation(null);
     }
     this.setState({
       prevmarker: ''
     });
     this.state.infowindow.close();
   }
+
+  // 
   
   render() {
     const {
