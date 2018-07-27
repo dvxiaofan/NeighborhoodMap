@@ -165,10 +165,7 @@ class App extends Component {
     this.state.infowindow.setContent('加载数据。。。');
     this.state.map.setCenter(marker.getPosition());
     this.state.map.panBy(0, -200);
-    this.state.infowindow.setContent(
-      'hello'
-    )
-    
+    this.getMarkerInfo(marker);
   }
 
   // 关闭信息窗口
@@ -182,7 +179,10 @@ class App extends Component {
     this.state.infowindow.close();
   }
 
-  // 
+  // 获取标记点信息
+  getMarkerInfo = (marker) => {
+    this.state.infowindow.setContent(`hello -- ${marker}`);
+  } 
   
   render() {
     const {
@@ -192,6 +192,8 @@ class App extends Component {
       <div className="App">
         <Menu
           locations={locations}
+          openInfoWindow={this.openInfoWindow}
+          closeInfoWindow={this.closeInfoWindow}
         />
         <div className='map' id='map'></div>
       </div>

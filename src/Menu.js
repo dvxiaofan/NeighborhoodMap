@@ -12,8 +12,10 @@ class Menu extends Component {
 	render() {
 		const {
 			locations,
+			openInfoWindow,
+			closeInfoWindow,
 		} = this.props;
-
+		
 		return (
 			<div className='menu'>
 				<div className='menu-title'>
@@ -21,6 +23,8 @@ class Menu extends Component {
 				</div>
 				<Search
 					locations={locations}
+					openInfoWindow={openInfoWindow}
+					closeInfoWindow={closeInfoWindow}
 				>
 					Filter
 				</Search>

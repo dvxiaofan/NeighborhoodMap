@@ -39,8 +39,10 @@ class Search extends Component {
 		const {
 			children,
 			locations,
+			openInfoWindow,
+			closeInfoWindow,
 		} = this.props;
-
+		
 		const { searchTerm } = this.state;
 		
 		return (
