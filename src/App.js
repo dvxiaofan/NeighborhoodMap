@@ -178,10 +178,28 @@ class App extends Component {
     });
     this.state.infowindow.close();
   }
-
+  
+  /* TODO: here */
   // 获取标记点信息
   getMarkerInfo = (marker) => {
-    this.state.infowindow.setContent(`hello -- ${marker}`);
+    // var latLngData = marker.getPosition().lat().toFixed(6)+','+marker.getPosition().lng().toFixed(6);
+
+    const url = "https://api.foursquare.com/v2/venues/search?client_id=PDJ4XZ2YTAGJTQIFGF4WUIY02B4TLZ5LFST1SG25XWWSXQ4M&client_secret=K3MVN4PU0KANIZBYBNT0Q4QYT1LV50IOK45JDCHBWLUA4MZD&v=20130815&ll="+ marker.getPosition().lat() + ", " + marker.getPosition().lng() + " & limit = 1 ";
+    
+    fetch(url)
+      .then(res => {
+        
+        res.json()
+          .then(data => {
+            const loca_data = data.response.venues;
+            console.log(loca_data);
+            
+          })
+      })
+      
+      
+
+    // this.state.infowindow.setContent(`hello -- ${marker}`);
   } 
   
   render() {
