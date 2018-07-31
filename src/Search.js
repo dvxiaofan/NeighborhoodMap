@@ -28,7 +28,12 @@ class Search extends Component {
 	}
 
 	onListClick(event) {
-		console.log(event.target.innerHTML);
+		
+		this.props.locations.map(loca => {
+			if (loca.title == event.target.innerHTML) {
+				console.log(loca.title);
+			}
+		})
 	}
 
 	onFilterClick() {
@@ -41,6 +46,7 @@ class Search extends Component {
 			locations,
 			openInfoWindow,
 			closeInfoWindow,
+			getMarkerInfo,
 		} = this.props;
 		
 		const { searchTerm } = this.state;
@@ -67,6 +73,7 @@ class Search extends Component {
 						key={loca.locaID}
 						className='form-list'
 						onClick={this.onListClick}
+						// onClick={openInfoWindow.bind(this, this.props.data.marker)}
 					>
 						{loca.title}
 					</div>

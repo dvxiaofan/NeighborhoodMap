@@ -14,6 +14,7 @@ class Menu extends Component {
 			locations,
 			openInfoWindow,
 			closeInfoWindow,
+			getMarkerInfo,
 		} = this.props;
 		
 		return (
@@ -25,6 +26,7 @@ class Menu extends Component {
 					locations={locations}
 					openInfoWindow={openInfoWindow}
 					closeInfoWindow={closeInfoWindow}
+					getMarkerInfo={getMarkerInfo}
 				>
 					Filter
 				</Search>
