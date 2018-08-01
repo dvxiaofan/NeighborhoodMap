@@ -57,10 +57,15 @@ class Search extends Component {
 					<input
 						type='text'
 						className='form-input'
+						placeholder='search'
 						value={searchTerm}
+						role='search'
+						aria-label='搜索框'
 						onChange={this.onSearchChange}
 					/>
 					<button 
+						role='button'
+						tabIndex='0'
 						type='button'
 						className='form-button'
 						onClick={this.onFilterClick}
@@ -69,7 +74,8 @@ class Search extends Component {
 					</button>
 				</form>
 				{locations.filter(isSearched(this.state.searchTerm)).map(loca =>(
-					<div 
+					<div
+						role='item-list'
 						key={loca.locaID}
 						className='form-list'
 						onClick={this.onListClick}
