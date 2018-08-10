@@ -28,8 +28,14 @@
 	width: 90%;
 }
 
-.menu-list {
-	height: 40px;
-	line-height: 40px;
-	padding-left: 15px;
+.items {
+	margin-top: 20px;
+}
+
+.items-list {
+	margin: 15px;
+}
+
+.items-list:hover {
+	cursor: pointer;
 }

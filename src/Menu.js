@@ -41,7 +41,7 @@ class Menu extends Component {
   render() {
     var locationlist = this.state.locations.map((listItem, index) => {
       return (
-        <Place
+        <List
           key={index}
           openInfoWindow={this.props.openInfoWindow.bind(this)}
           data={listItem}
@@ -64,25 +64,25 @@ class Menu extends Component {
           value={this.state.query}
           onChange={this.searchLocations}
         />
-        <ul className=''>
+        <div className='items'>
           {this.state.suggestions && locationlist}
-        </ul>
+        </div>
       </div>
     );
   }
 }
 
-class Place extends Component {
+class List extends Component {
 
   render() {
-    return ( <li 
-      className = 'menu-list'
+    return ( <div 
+      className = 'items-list'
       role = 'listItem'
       tabIndex = '0'
       onKeyPress = { this.props.openInfoWindow.bind( this, this.props.data.marker) }
       onClick = { this.props.openInfoWindow.bind(this, this.props.data.marker) }>
       { this.props.data.title } 
-      </li>
+      </div>
     );
   }
 }
