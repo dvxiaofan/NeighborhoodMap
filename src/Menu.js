@@ -38,7 +38,6 @@ class Menu extends Component {
     });
   }
 
-//render function
   render() {
     var locationlist = this.state.locations.map((listItem, index) => {
       return (
@@ -51,18 +50,21 @@ class Menu extends Component {
     }, this);
 
     return (
-      <div className='search-field'>
+      <div className='menu'>
+				<div
+					className='menu-title'
+
+				>街区地图</div>
         <input
-          role='search'
-          aria-labelledby='search'
-          id='search-field'
-          className='search-input'
           type='text'
+          className='menu-input'
           placeholder='search'
+          role='search'
+					aria-label='搜索框'
           value={this.state.query}
           onChange={this.searchLocations}
         />
-        <ul className='location-list'>
+        <ul className=''>
           {this.state.suggestions && locationlist}
         </ul>
       </div>
@@ -74,23 +76,15 @@ class Place extends Component {
 
   render() {
     return ( <li 
-      role = 'button'
-      className = 'place'
+      className = 'menu-list'
+      role = 'listItem'
       tabIndex = '0'
-      onKeyPress = {
-        this.props.openInfoWindow.bind(
-          this,
-          this.props.data.marker
-        )
-      }
-      onClick = {
-        this.props.openInfoWindow.bind(this, this.props.data.marker)
-      } >
-      {
-        this.props.data.title
-      } 
+      onKeyPress = { this.props.openInfoWindow.bind( this, this.props.data.marker) }
+      onClick = { this.props.openInfoWindow.bind(this, this.props.data.marker) }>
+      { this.props.data.title } 
       </li>
     );
   }
 }
+
 export default Menu;
