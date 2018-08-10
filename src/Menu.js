@@ -12,11 +12,12 @@ class Menu extends Component {
     this.searchLocations = this.searchLocations.bind(this);
   }
 
-//Search the location
-  searchLocations(event) {
-    this.props.closeInfoWindow();
-    const { value } = event.target;
-    var locations = [];
+  searchLocations(e) {
+		this.props.closeInfoWindow();
+		
+    const { value } = e.target;
+		var locations = [];
+		// 过滤显示标记点
     this.props.locations.forEach(location => {
       if (location.title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         location.marker.setVisible(true);
@@ -39,7 +40,7 @@ class Menu extends Component {
   }
 
   render() {
-    var locationlist = this.state.locations.map((listItem, index) => {
+    var locaList = this.state.locations.map((listItem, index) => {
       return (
         <List
           key={index}
@@ -51,10 +52,7 @@ class Menu extends Component {
 
     return (
       <div className='menu'>
-				<div
-					className='menu-title'
-
-				>街区地图</div>
+				<div className='menu-title'>街区地图</div>
         <input
           type='text'
           className='menu-input'
@@ -65,26 +63,23 @@ class Menu extends Component {
           onChange={this.searchLocations}
         />
         <div className='items'>
-          {this.state.suggestions && locationlist}
+          {this.state.suggestions && locaList}
         </div>
       </div>
     );
   }
 }
 
-class List extends Component {
-
-  render() {
-    return ( <div 
-      className = 'items-list'
-      role = 'listItem'
-      tabIndex = '0'
-      onKeyPress = { this.props.openInfoWindow.bind( this, this.props.data.marker) }
-      onClick = { this.props.openInfoWindow.bind(this, this.props.data.marker) }>
-      { this.props.data.title } 
-      </div>
-    );
-  }
+function List(props) {
+	return ( <div 
+		className = 'items-list'
+		role = 'listItem'
+		tabIndex = '0'
+		onKeyPress = { props.openInfoWindow.bind( this, props.data.marker) }
+		onClick = { props.openInfoWindow.bind(this, props.data.marker) }>
+		{ props.data.title } 
+		</div>
+	);
 }
 
 export default Menu;

@@ -18,47 +18,33 @@ class App extends Component {
       bounds: '',
       locations: [
         {
-          locaID: '1',
           title: '中百罗森',
-          address: '111',
           location: { lat: 30.613611, lng: 114.308872 },
           type: 'foot'
         },{
-          locaID: '2',
           title: '武汉长江二桥',
-          address: '222',
           location: { lat: 30.590746, lng: 114.304076 },
-          type: 'game'
+          type: 'place'
         },{
-          locaID: '3',
           title: 'Conference Room',
-          address: '333',
           location: { lat: 30.592081, lng: 114.294638 },
-          type: 'voice'
+          type: 'place'
         },{
-          locaID: '4',
           title: '汉口江滩公园',
-          address: '444',
           location: { lat: 30.602572, lng: 114.31335 },
-          type: 'car'
+          type: 'park'
         },{
-          locaID: '5',
           title: '三镇民生甜食馆',
-          address: '555',
           location: { lat: 30.594741, lng: 114.269919 },
-          type: 'mountain'
-        },{
-          locaID: '6',
-          title: 'Luckin Coffee',
-          address: '666',
-          location: { lat: 30.577007, lng: 114.333434 },
-          type: 'udacity'
-        },{
-          locaID: '7',
-          title: '湖北大学',
-          address: '777',
-          location: { lat: 30.585605, lng: 114.292862 },
           type: 'foot'
+        },{
+          title: 'Luckin Coffee',
+          location: { lat: 30.577007, lng: 114.333434 },
+          type: 'foot'
+        },{
+          title: '湖北大学',
+          location: { lat: 30.585605, lng: 114.292862 },
+          type: 'school'
         }
       ]
     };
@@ -109,7 +95,6 @@ class App extends Component {
 
     var locations = [];
     this.state.locations.map(loca => {
-      var longName = `${loca.title} - ${loca.type}`;
       var marker = new window.google.maps.Marker({
         position: new window.google.maps.LatLng(
           loca.location.lat,
@@ -120,7 +105,6 @@ class App extends Component {
         address: loca.address,
       });
 
-      loca.longname = longName;
       loca.marker = marker;
       loca.display = true;
       locations.push(loca);
